@@ -7,6 +7,8 @@ import {
   Select,
   InputLabel,
   MenuItem,
+  FormControl,
+  NativeSelect,
 } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { selectGenreOrCategory } from '../../features/currentGenreOrCategory';
@@ -18,11 +20,12 @@ import { useGetMoviesQuery } from '../../services/TMDB';
 
 const Movies = () => {
   const classes = useStyles();
+  const isMobile = useMediaQuery('(max-width:600px)');
 
   const [page, setPage] = useState(1);
   const [sort, setSort] = useState('popular');
 
-  const { genreIdOrCategoryName } = useSelector(
+  const { genreIdOrCategoryName, searchQuery } = useSelector(
     (state) => state.currentGenreOrCategory
   );
 
@@ -30,10 +33,11 @@ const Movies = () => {
     genreIdOrCategoryName,
     page,
     sort,
+    searchQuery,
   });
 
   useEffect(() => {
-    setSort('popular');
+    sort !== 'popular' && setSort('popular');
   }, [genreIdOrCategoryName]);
 
   if (isFetching) {
@@ -60,22 +64,37 @@ const Movies = () => {
 
   return (
     <div>
-      <div className={classes.sortContainer}>
-        <InputLabel id='sortBy'>Sort By</InputLabel>
-        <Select
-          labelId='sortBy'
-          id='sortBySelect'
-          value={sort}
-          label='Sort By'
-          sx={{ m: 1, minWidth: 120 }}
-          size='small'
-          onChange={(e) => setSort(e.target.value)}
-        >
-          <MenuItem value={'popular'}>Popular</MenuItem>
-          <MenuItem value={'releaseDate'}>Release Date</MenuItem>
-          <MenuItem value={'topRated'}>Top Rated</MenuItem>
-        </Select>
-      </div>
+      {typeof genreIdOrCategoryName === 'number' && (
+        <div className={classes.sortContainer}>
+          <FormControl sx={{ m: 1, minWidth: 160 }}>
+            <InputLabel id='sortBy'>Sort By</InputLabel>
+            {isMobile ? (
+              <NativeSelect
+                id='sortBySelect'
+                defaultValue={sort}
+                label='Sort By'
+                onChange={(e) => setSort(e.target.value)}
+              >
+                <option value={'popular'}>Popular</option>
+                <option value={'releaseDate'}>Release Date</option>
+                <option value={'topRated'}>Top Rated</option>
+              </NativeSelect>
+            ) : (
+              <Select
+                labelId='sortBy'
+                id='sortBySelect'
+                value={sort}
+                label='Sort By'
+                onChange={(e) => setSort(e.target.value)}
+              >
+                <MenuItem value={'popular'}>Popular</MenuItem>
+                <MenuItem value={'releaseDate'}>Release Date</MenuItem>
+                <MenuItem value={'topRated'}>Top Rated</MenuItem>
+              </Select>
+            )}
+          </FormControl>
+        </div>
+      )}
       <MovieList movies={data} />
     </div>
   );
