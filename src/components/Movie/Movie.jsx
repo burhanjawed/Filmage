@@ -21,7 +21,8 @@ const Movie = ({ movie, idx }) => {
             }
           />
           <Typography className={classes.title} variant='h5'>
-            {movie.title}
+            {movie.title}{' '}
+            {movie.release_date && `(${movie.release_date.split('-')[0]})`}
           </Typography>
           <Tooltip disableTouchListener title={`${movie.vote_average} / 10`}>
             <div>
