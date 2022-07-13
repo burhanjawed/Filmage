@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Modal,
   Typography,
@@ -50,7 +50,9 @@ const MovieInformation = () => {
   const isMovieFavorited = false;
   const isMovieWatchlisted = false;
 
-  console.log(data);
+  // console.log(data);
+
+  const [open, setOpen] = useState(false);
 
   if (isFetching) {
     return (
@@ -74,9 +76,9 @@ const MovieInformation = () => {
     let rhours = Math.floor(hours);
     let minutes = (hours - rhours) * 60;
     let rminutes = Math.round(minutes);
-    const hourString = rhours === 1 ? `${rhours} hour` : `${rhours} hours`;
+    const hourString = rhours === 1 ? `${rhours} hr` : `${rhours} hrs`;
     const minuteString =
-      rminutes === 1 ? `${rminutes} minute` : `${rminutes} minutes`;
+      rminutes === 1 ? `${rminutes} min` : `${rminutes} mins`;
 
     let convertedString = rhours === 0 ? num : hourString + ' ' + minuteString;
 
@@ -95,6 +97,15 @@ const MovieInformation = () => {
       }
       return langString;
     }
+  };
+
+  const convertDate = (date) => {
+    let newDate = new Date(date.replace(/-/g, '/'));
+    let convertedDate = newDate.toString().split(' ');
+    let dateString = `${convertedDate[1]} ${parseInt(convertedDate[2])}, ${
+      convertedDate[3]
+    }`;
+    return dateString;
   };
 
   const addToFavorites = () => {};
@@ -191,10 +202,67 @@ const MovieInformation = () => {
               )
               .slice(0, 6)}
         </Grid>
+        <Typography variant='h5' gutterBottom style={{ marginTop: '2rem' }}>
+          Details
+        </Typography>
+        <Grid item container>
+          <Grid
+            item
+            xs={12}
+            sm={12}
+            className={classes.detailsContainer}
+            style={{ display: 'flex', gap: '10px', flexDirection: 'column' }}
+          >
+            <Typography>
+              <strong>Release Date:</strong> {convertDate(data?.release_date)}
+            </Typography>
+            <Typography>
+              <strong>Runtime:</strong> {timeConvert(data?.runtime)}
+            </Typography>
+            <Typography>
+              <strong>Genres:</strong>{' '}
+              {data?.genres.map((genre, idx) => {
+                if (idx === data?.genres.length - 1) {
+                  return (
+                    <Link
+                      key={idx}
+                      to='/'
+                      style={{ textDecoration: 'none' }}
+                      onClick={() => dispatch(selectGenreOrCategory(genre.id))}
+                    >
+                      {genre.name}
+                    </Link>
+                  );
+                } else {
+                  return (
+                    <Link
+                      key={idx}
+                      to='/'
+                      style={{ textDecoration: 'none' }}
+                      onClick={() => dispatch(selectGenreOrCategory(genre.id))}
+                    >
+                      {genre.name},{' '}
+                    </Link>
+                  );
+                }
+              })}
+            </Typography>
+            <Typography>
+              <strong>Languages:</strong>{' '}
+              {data?.spoken_languages.map((language, idx) => {
+                if (idx === data?.spoken_languages.length - 1) {
+                  return `${language.english_name}`;
+                } else {
+                  return `${language.english_name}, `;
+                }
+              })}
+            </Typography>
+          </Grid>
+        </Grid>
         <Grid item container style={{ marginTop: '2rem' }}>
           <div className={classes.buttonsContainer}>
             <Grid item xs={12} sm={6} className={classes.buttonsContainer}>
-              <ButtonGroup size='small' variant='outlined'>
+              <ButtonGroup size='medium' variant='outlined'>
                 <Button
                   target='_blank'
                   rel='noopener noreferrer'
@@ -211,7 +279,11 @@ const MovieInformation = () => {
                 >
                   IMDB
                 </Button>
-                <Button onClick={() => {}} href='#' endIcon={<Theaters />}>
+                <Button
+                  onClick={() => setOpen(true)}
+                  href='#'
+                  endIcon={<Theaters />}
+                >
                   Trailer
                 </Button>
               </ButtonGroup>
@@ -266,6 +338,23 @@ const MovieInformation = () => {
           <Box>Sorry, nothing was found.</Box>
         )}
       </Box>
+      <Modal
+        closeAfterTransition
+        className={classes.modal}
+        open={open}
+        onClose={() => setOpen(false)}
+      >
+        {data?.videos?.results?.length > 0 && (
+          <iframe
+            autoPlay
+            className={classes.video}
+            frameBorder='0'
+            title='Trailer'
+            src={`https://www.youtube.com/embed/${data.videos.results[0].key}`}
+            allow='autoplay'
+          ></iframe>
+        )}
+      </Modal>
     </Grid>
   );
 };

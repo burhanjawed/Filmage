@@ -60,4 +60,23 @@ export default makeStyles((theme) => ({
       flexDirection: 'column',
     },
   },
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  video: {
+    width: '50%',
+    height: '50%',
+    [theme.breakpoints.down('sm')]: {
+      width: '90%',
+      height: '90%',
+    },
+  },
+  detailsContainer: {
+    background: '#F2F2F2',
+    padding: '10px',
+    width: '100%',
+    borderRadius: '10px',
+  },
 }));

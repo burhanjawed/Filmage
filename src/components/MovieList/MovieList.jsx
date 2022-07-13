@@ -4,16 +4,16 @@ import { Movie } from '..';
 
 import useStyles from './styles';
 
-const MovieList = ({ movies, slice }) => {
+const MovieList = ({ movies, slice, type }) => {
   const classes = useStyles();
 
   return (
     <Grid container className={classes.moviesContainer}>
       {!slice
-        ? movies.results.map((movie, idx) => (
+        ? movies?.results.map((movie, idx) => (
             <Movie key={idx} movie={movie} idx={idx} />
           ))
-        : movies.results
+        : movies?.results
             .map((movie, idx) => <Movie key={idx} movie={movie} idx={idx} />)
             .slice(0, slice)}
     </Grid>
