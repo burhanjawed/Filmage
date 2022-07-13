@@ -10,6 +10,7 @@ import { searchMovie } from '../../features/currentGenreOrCategory';
 const Search = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const [query, setQuery] = useState('');
 
@@ -18,6 +19,8 @@ const Search = () => {
       dispatch(searchMovie(query));
     }
   };
+
+  if (location.pathname !== '/') return null;
 
   return (
     <div className={classes.searchContainer}>

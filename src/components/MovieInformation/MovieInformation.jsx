@@ -86,7 +86,7 @@ const MovieInformation = () => {
   };
 
   const spokenLanguages = () => {
-    let langString = ' / ';
+    let langString = ' | ';
     if (data.spoken_languages.length > 0) {
       for (let i = 0; i < data.spoken_languages.length; i++) {
         if (i === 0) {

@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { selectGenreOrCategory } from '../../features/currentGenreOrCategory';
-import { MovieList } from '..';
+import { MovieList, Pagination } from '..';
 import './Movies.scss';
 import useStyles from './styles';
 
@@ -21,6 +21,9 @@ import { useGetMoviesQuery } from '../../services/TMDB';
 const Movies = () => {
   const classes = useStyles();
   const isMobile = useMediaQuery('(max-width:600px)');
+  const lg = useMediaQuery((theme) => theme.breakpoints.only('lg'));
+
+  const numberOfMovies = lg ? 16 : 18;
 
   const [page, setPage] = useState(1);
   const [sort, setSort] = useState('popular');
@@ -95,7 +98,12 @@ const Movies = () => {
           </FormControl>
         </div>
       )}
-      <MovieList movies={data} />
+      <MovieList movies={data} slice={numberOfMovies} />
+      <Pagination
+        currentPage={page}
+        setPage={setPage}
+        totalPages={data.total_pages}
+      />
     </div>
   );
 };
