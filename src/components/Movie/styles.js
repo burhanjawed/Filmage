@@ -29,6 +29,8 @@ export default makeStyles((theme) => ({
   image: {
     borderRadius: '20px',
     height: '300px',
+    width: '200px',
+    objectFit: 'cover',
     marginBottom: '10px',
     '&:hover': {
       transform: 'scale(1.05)',

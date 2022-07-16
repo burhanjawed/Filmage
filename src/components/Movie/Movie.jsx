@@ -17,7 +17,7 @@ const Movie = ({ movie, idx }) => {
             src={
               movie.poster_path
                 ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
-                : 'https://www.fillmurray.com/200/300'
+                : 'https://t3.ftcdn.net/jpg/04/62/93/66/360_F_462936689_BpEEcxfgMuYPfTaIAOC1tCDurmsno7Sp.jpg'
             }
           />
           <Typography className={classes.title} variant='h5'>

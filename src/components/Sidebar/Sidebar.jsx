@@ -42,6 +42,10 @@ const Sidebar = ({ setMobileOpen }) => {
     (state) => state.currentGenreOrCategory
   );
 
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [genreIdOrCategoryName]);
+
   // genres data
   const { data, isFetching } = useGetGenresQuery();
 
@@ -72,7 +76,7 @@ const Sidebar = ({ setMobileOpen }) => {
                 <img
                   src={genreIcons[label.toLowerCase()]}
                   alt='genre'
-                  className={classes.genreImages}
+                  className={classes.genreImage}
                   height={30}
                 />
               </ListItemIcon>
@@ -99,7 +103,7 @@ const Sidebar = ({ setMobileOpen }) => {
                   <img
                     src={genreIcons[name.toLowerCase()]}
                     alt='genre'
-                    className={classes.genreImages}
+                    className={classes.genreImage}
                     height={30}
                   />
                 </ListItemIcon>

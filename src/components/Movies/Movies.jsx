@@ -11,8 +11,7 @@ import {
   NativeSelect,
 } from '@mui/material';
 import { useSelector } from 'react-redux';
-import { selectGenreOrCategory } from '../../features/currentGenreOrCategory';
-import { MovieList, Pagination } from '..';
+import { MovieList, Pagination, FeaturedMovie } from '..';
 import './Movies.scss';
 import useStyles from './styles';
 
@@ -23,7 +22,7 @@ const Movies = () => {
   const isMobile = useMediaQuery('(max-width:600px)');
   const lg = useMediaQuery((theme) => theme.breakpoints.only('lg'));
 
-  const numberOfMovies = lg ? 16 : 18;
+  const numberOfMovies = lg ? 17 : 19;
 
   const [page, setPage] = useState(1);
   const [sort, setSort] = useState('popular');
@@ -67,6 +66,8 @@ const Movies = () => {
 
   return (
     <div>
+      <FeaturedMovie movie={data.results[0]} />
+
       {typeof genreIdOrCategoryName === 'number' && (
         <div className={classes.sortContainer}>
           <FormControl sx={{ m: 1, minWidth: 160 }}>
@@ -98,7 +99,7 @@ const Movies = () => {
           </FormControl>
         </div>
       )}
-      <MovieList movies={data} slice={numberOfMovies} />
+      <MovieList movies={data} slice={numberOfMovies} excludeFirst />
       <Pagination
         currentPage={page}
         setPage={setPage}

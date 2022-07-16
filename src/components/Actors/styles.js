@@ -25,7 +25,10 @@ export default makeStyles((theme) => ({
   },
   poster: {
     borderRadius: '20px',
-    boxShadow: '0.5em 1em 1em rgb(64,64,70)',
+    boxShadow:
+      theme.palette.mode === 'dark'
+        ? '0.5em 1em 1em rgb(8,8,8)'
+        : '0.5em 1em 1em rgb(64,64,70)',
     width: '80%',
     objectFit: 'cover',
     [theme.breakpoints.down('md')]: {

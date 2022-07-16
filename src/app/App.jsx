@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { CssBaseline } from '@mui/material';
 import { Route, Switch } from 'react-router-dom';
 import {
@@ -9,10 +9,15 @@ import {
   Navbar,
 } from '../components';
 import useStyles from './styles';
+import useAlan from '../components/Alan';
 import './App.scss';
 
 const App = () => {
   const classes = useStyles();
+  const alanBtnContainer = useRef();
+
+  // alan voice ai
+  useAlan();
 
   return (
     <div className={classes.root}>
@@ -35,6 +40,7 @@ const App = () => {
           </Route>
         </Switch>
       </main>
+      <div ref={alanBtnContainer} />
     </div>
   );
 };

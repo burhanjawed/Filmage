@@ -281,7 +281,7 @@ const MovieInformation = () => {
                     <Link
                       key={idx}
                       to='/'
-                      style={{ textDecoration: 'none' }}
+                      className={classes.detailsLink}
                       onClick={() => dispatch(selectGenreOrCategory(genre.id))}
                     >
                       {genre.name}
@@ -292,7 +292,7 @@ const MovieInformation = () => {
                     <Link
                       key={idx}
                       to='/'
-                      style={{ textDecoration: 'none' }}
+                      className={classes.detailsLink}
                       onClick={() => dispatch(selectGenreOrCategory(genre.id))}
                     >
                       {genre.name},{' '}

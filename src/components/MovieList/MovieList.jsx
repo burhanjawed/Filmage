@@ -4,8 +4,9 @@ import { Movie } from '..';
 
 import useStyles from './styles';
 
-const MovieList = ({ movies, slice, type }) => {
+const MovieList = ({ movies, slice, type, excludeFirst }) => {
   const classes = useStyles();
+  const startFrom = excludeFirst ? 1 : 0;
 
   return (
     <Grid container className={classes.moviesContainer}>
@@ -15,7 +16,7 @@ const MovieList = ({ movies, slice, type }) => {
           ))
         : movies?.results
             .map((movie, idx) => <Movie key={idx} movie={movie} idx={idx} />)
-            .slice(0, slice)}
+            .slice(startFrom, slice)}
     </Grid>
   );
 };

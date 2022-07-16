@@ -12,7 +12,10 @@ export default makeStyles((theme) => ({
   },
   poster: {
     borderRadius: '20px',
-    boxShadow: '0.5em 1em 1em rgb(64,64,70)',
+    boxShadow:
+      theme.palette.mode === 'dark'
+        ? '0.5em 1em 1em rgb(8,8,8)'
+        : '0.5em 1em 1em rgb(64,64,70)',
     width: '80%',
     [theme.breakpoints.down('md')]: {
       margin: '0 auto',
@@ -77,9 +80,13 @@ export default makeStyles((theme) => ({
     },
   },
   detailsContainer: {
-    background: '#F2F2F2',
+    background: theme.palette.mode === 'dark' ? '#181818' : '#F2F2F2',
     padding: '10px',
     width: '100%',
     borderRadius: '10px',
+  },
+  detailsLink: {
+    textDecoration: 'none',
+    color: theme.palette.mode === 'dark' ? 'white' : 'black',
   },
 }));
