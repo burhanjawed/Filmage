@@ -17,7 +17,7 @@ https://filmage.tv/
 - Browse/Search for TV shows
 - Find movie/tv show details such as actors, episode guides, and more
 - Favorite movies/tv shows or add to watchlist
-- User registration connected with TMDB account
+- User registration/profile connected with TMDB account
 - Alan AI Voice Assistant provides users an effortless way of finding a movie, tv show, or actor
 
 # Development installation
