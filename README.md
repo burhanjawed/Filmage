@@ -1,4 +1,4 @@
-# Filmage - Designed and Developed by Burhan Jawed
+# Filmage
 Filmage is an app for movie lovers. This web app lets users search through a vast collection of libraries for movies and tv shows. Users can find information about movies, actors, tv shows, episode guides, and more.
 
 # Images
